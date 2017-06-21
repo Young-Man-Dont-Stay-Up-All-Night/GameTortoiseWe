@@ -1,14 +1,14 @@
-var path = require('path')
-var utils = require('./utils')
+var path = require('path');
+var utils = require('./utils');
 
-var projectRoot = path.resolve(__dirname, '../')
-const vuxLoader = require('vux-loader')
+var projectRoot = path.resolve(__dirname, '../');
+const vuxLoader = require('vux-loader');
 
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+var config = require('../config');
+var vueLoaderConfig = require('./vue-loader.conf');
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+function resolve(dir) {
+  return path.join(__dirname, '..', dir);
 }
 
 let webpackConfig = {
@@ -24,13 +24,22 @@ let webpackConfig = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    alias: {  
-      'vue$': 'vue/dist/vue.esm.js',
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'jquery': path.resolve(__dirname, '../node_modules/jquery/src/jquery'),
+      jquery: path.resolve(__dirname, '../node_modules/jquery/src/jquery'),
+      'muse-components': 'muse-ui/src'
     }
   },
   module: {
+    loaders: [
+      // ...
+      {
+        test: /muse-ui.src.*?js$/,
+        loader: 'babel'
+      }
+    ],
+
     rules: [
       {
         test: /\.vue$/,
@@ -60,9 +69,8 @@ let webpackConfig = {
       }
     ]
   }
-}
-
+};
 
 module.exports = vuxLoader.merge(webpackConfig, {
   plugins: ['vux-ui', 'progress-bar', 'duplicate-style']
-})
+});

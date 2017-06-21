@@ -1,11 +1,9 @@
 <template>
-  <div>
-    你好 马哥
-  </div>
+
+
 </template>
 
 <script>
-
   // import api from '../js/api';
 
   export default {
